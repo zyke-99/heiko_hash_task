@@ -4,6 +4,16 @@ use rand::Rng;
 pub const MIN_HASHES: usize = 0;
 pub const MAX_HASHES: usize = 100;
 
+pub fn generate_number_of_random_hashes(number_of_hashes: usize) -> Vec<[u64; aggregator::HASH_LENGTH_U64]> {
+    let mut rng = rand::thread_rng();
+    let len = rng.gen_range(MIN_HASHES..=number_of_hashes);
+    let mut vec = Vec::with_capacity(len);
+    for _ in 0..len {
+        vec.push(generate_random_hash());
+    }
+    vec
+}
+
 pub fn generate_random_hashes() -> Vec<[u64; aggregator::HASH_LENGTH_U64]> {
     let mut rng = rand::thread_rng();
     let len = rng.gen_range(MIN_HASHES..=MAX_HASHES);
